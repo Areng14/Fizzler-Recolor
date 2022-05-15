@@ -7,8 +7,12 @@ import time
 var1 = input("Is the assets in the portal 2 directory? (yes/no): ")
 if var1 == "yes":
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    print ("1. Fizzler")
-    print ("2. Absolute Fizzler (On your maps ONLY)")
+    print ("1. Fizzler [VANILLA] (All maps)")
+    time.sleep(0.5)
+    print ("2. Absolute Fizzler [BEEMOD] (On your maps ONLY)")
+    time.sleep(0.5)
+    print ("3. Compressed Smoke Field [BEEMOD] (On your maps ONLY)")
+    time.sleep(0.5)
     EditWhat = int(input("What fizzler are we editing? (Integer) "))
     print ()
     dlcfolderint = int(input("What is your highest dlc folder? (Integer) "))
@@ -91,7 +95,7 @@ if var1 == "yes":
             print ("If you have any questions dm Areng#0001 on discord.")
             time.sleep(2.5)
             print ("You may now close this window.")
-            time.sleep(99999999999)
+            time.sleep(999999)
             #End Script
         MakeFolders()
         MoveAssets()
@@ -150,14 +154,64 @@ if var1 == "yes":
             print ("If you have any questions dm Areng#0001 on discord.")
             time.sleep(2.5)
             print ("You may now close this window.")
-            time.sleep(99999999999)
+            time.sleep(999999)
         MoveAssets()
         editfiles("absolute_field")
+        Packer()
+    def CPF():
+        def editfiles(FileName):
+            Directory = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/fourthreaper/"
+            FileName2 = Directory + FileName + ".vmt"
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_COLOR "[0.3 0.1 0.4]"','$FLOW_COLOR "{' + Color + '}"')
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_VORTEX_COLOR "[5 2.5 5]"','$FLOW_VORTEX_COLOR "{' + Color + '}"')
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            print ("Successfully edited colors for " + FileName)
+            #Writes the vmt
+        def MoveAssets():
+            source_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/effects/CompressedSmoke/"
+            destination_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/fourthreaper/"
+            files_to_move = ['compressed_smoke_field.vmt','clean_csf_right.vmt','clean_csf_left.vmt','clean_csf_center.vmt',]
+            for file in files_to_move:
+                source = source_folder + file
+                destination = destination_folder + file
+                shutil.copyfile(source, destination)
+                print('Copied', file, "to", destination_folder)
+        def Packer():
+            print ()
+            print ()
+            print ()
+            print ("All functions have been completed!")
+            print ("Relaunch Portal2 and it will show the compressed smoke field fizzler recolored!")
+            print ("If you have any questions dm Areng#0001 on discord.")
+            time.sleep(2.5)
+            print ("You may now close this window.")
+            time.sleep(999999)
+        MoveAssets()
+        editfiles("compressed_smoke_field")
         Packer()
     if EditWhat == 1:
         NormalFiz()
     if EditWhat == 2:
         ABSFizzler()
+    if EditWhat == 3:
+        CPF()
 
         
 else: 
