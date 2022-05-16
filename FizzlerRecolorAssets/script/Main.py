@@ -2,18 +2,30 @@ import os
 import shutil
 import random
 import time
+import colorama
+from colorama import Fore
 #Imports shit
+
 
 var1 = input("Is the assets in the portal 2 directory? (yes/no): ")
 if var1 == "yes":
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    print ("1. Fizzler [VANILLA] (All maps)")
-    time.sleep(0.5)
+    print (Fore.RED + "Warning! If the fizzler files are NOT found, this program will crash sorry!")
+    print (Fore.BLUE + "1. Fizzler [VANILLA] (All maps)")
+    time.sleep(0.1)
     print ("2. Absolute Fizzler [BEEMOD] (On your maps ONLY)")
-    time.sleep(0.5)
+    time.sleep(0.1)
     print ("3. Compressed Smoke Field [BEEMOD] (On your maps ONLY)")
-    time.sleep(0.5)
-    EditWhat = int(input("What fizzler are we editing? (Integer) "))
+    time.sleep(0.1)
+    print ("4. Force Deflection Field [BEEMOD] (On your maps ONLY)")
+    time.sleep(0.1)
+    print ("5. Matter Inquisition Field [BEEMOD] (On your maps ONLY)")
+    time.sleep(0.1)
+    print ("6. Closed Solid Field [BEEMOD] (On your maps ONLY)")
+    time.sleep(0.1)
+    print ("7. Portal Switcher Fizzler [BEEMOD] (On your maps ONLY)")
+    time.sleep(0.1)
+    EditWhat = int(input(Fore.YELLOW + "What fizzler are we editing? (Integer) "))
     print ()
     dlcfolderint = int(input("What is your highest dlc folder? (Integer) "))
     print ()
@@ -35,6 +47,7 @@ if var1 == "yes":
             for line in reading_file:
                 stripped_line = line.strip()
                 new_line = stripped_line.replace('$FLOW_COLOR "[0.025 0.08 0.1]"','$FLOW_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
                 new_file_content += new_line +"\n"
             reading_file.close()
             writing_file = open(FileName2,'w')
@@ -45,6 +58,7 @@ if var1 == "yes":
             for line in reading_file:
                 stripped_line = line.strip()
                 new_line = stripped_line.replace('$FLOW_VORTEX_COLOR "[0.64 2.058 2.56]"','$FLOW_VORTEX_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
                 new_file_content += new_line +"\n"
             reading_file.close()
             writing_file = open(FileName2,'w')
@@ -95,7 +109,8 @@ if var1 == "yes":
             print ("If you have any questions dm Areng#0001 on discord.")
             time.sleep(2.5)
             print ("You may now close this window.")
-            time.sleep(999999)
+            input1 = input("Press any key to exit")
+            quit
             #End Script
         MakeFolders()
         MoveAssets()
@@ -119,6 +134,7 @@ if var1 == "yes":
             for line in reading_file:
                 stripped_line = line.strip()
                 new_line = stripped_line.replace('$FLOW_COLOR "[0.05 0.4 0.6]"','$FLOW_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
                 new_file_content += new_line +"\n"
             reading_file.close()
             writing_file = open(FileName2,'w')
@@ -129,6 +145,7 @@ if var1 == "yes":
             for line in reading_file:
                 stripped_line = line.strip()
                 new_line = stripped_line.replace('$FLOW_VORTEX_COLOR "[0.4 3.2 4.8]"','$FLOW_VORTEX_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
                 new_file_content += new_line +"\n"
             reading_file.close()
             writing_file = open(FileName2,'w')
@@ -154,7 +171,8 @@ if var1 == "yes":
             print ("If you have any questions dm Areng#0001 on discord.")
             time.sleep(2.5)
             print ("You may now close this window.")
-            time.sleep(999999)
+            input1 = input("Press any key to exit")
+            quit
         MoveAssets()
         editfiles("absolute_field")
         Packer()
@@ -167,6 +185,7 @@ if var1 == "yes":
             for line in reading_file:
                 stripped_line = line.strip()
                 new_line = stripped_line.replace('$FLOW_COLOR "[0.3 0.1 0.4]"','$FLOW_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
                 new_file_content += new_line +"\n"
             reading_file.close()
             writing_file = open(FileName2,'w')
@@ -177,6 +196,7 @@ if var1 == "yes":
             for line in reading_file:
                 stripped_line = line.strip()
                 new_line = stripped_line.replace('$FLOW_VORTEX_COLOR "[5 2.5 5]"','$FLOW_VORTEX_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
                 new_file_content += new_line +"\n"
             reading_file.close()
             writing_file = open(FileName2,'w')
@@ -202,16 +222,285 @@ if var1 == "yes":
             print ("If you have any questions dm Areng#0001 on discord.")
             time.sleep(2.5)
             print ("You may now close this window.")
-            time.sleep(999999)
+            input1 = input("Press any key to exit")
+            quit
         MoveAssets()
         editfiles("compressed_smoke_field")
         Packer()
+    def Force():
+        def editfiles(FileName):
+            Directory = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/fourthreaper/"
+            FileName2 = Directory + FileName + ".vmt"
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_COLOR "[0.3 0.15 0.0375]"','$FLOW_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_VORTEX_COLOR "[10 5 1.25]"','$FLOW_VORTEX_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            print ("Successfully edited colors for " + FileName)
+            #Writes the vmt
+        def MoveAssets():
+            source_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/effects/Force/"
+            destination_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/fourthreaper/"
+            files_to_move = ['force_deflection_field.vmt','clean_fdf_right.vmt','clean_fdf_left.vmt','clean_fdf_center.vmt','old_fdf_right.vmt','cold_fdf_left.vmt','old_fdf_center.vmt',]
+            for file in files_to_move:
+                source = source_folder + file
+                destination = destination_folder + file
+                shutil.copyfile(source, destination)
+                print('Copied', file, "to", destination_folder)
+        def Packer():
+            print ()
+            print ()
+            print ()
+            print ("All functions have been completed!")
+            print ("Relaunch Portal2 and it will show the force detection field recolored!")
+            print ("If you have any questions dm Areng#0001 on discord.")
+            time.sleep(2.5)
+            print ("You may now close this window.")
+            input1 = input("Press any key to exit")
+            quit
+        MoveAssets()
+        editfiles("force_deflection_field")
+        Packer()
+    def Force():
+        def editfiles(FileName):
+            Directory = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/fourthreaper/"
+            FileName2 = Directory + FileName + ".vmt"
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_COLOR "[0.3 0.15 0.0375]"','$FLOW_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_VORTEX_COLOR "[10 5 1.25]"','$FLOW_VORTEX_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            print ("Successfully edited colors for " + FileName)
+            #Writes the vmt
+        def MoveAssets():
+            source_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/effects/Force/"
+            destination_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/fourthreaper/"
+            files_to_move = ['force_deflection_field.vmt','clean_fdf_right.vmt','clean_fdf_left.vmt','clean_fdf_center.vmt','old_fdf_right.vmt','old_fdf_left.vmt','old_fdf_center.vmt','old_fdf_short.vmt']
+            for file in files_to_move:
+                source = source_folder + file
+                destination = destination_folder + file
+                shutil.copyfile(source, destination)
+                print('Copied', file, "to", destination_folder)
+        def Packer():
+            print ()
+            print ()
+            print ()
+            print ("All functions have been completed!")
+            print ("Relaunch Portal2 and it will show the force detection field recolored!")
+            print ("If you have any questions dm Areng#0001 on discord.")
+            time.sleep(2.5)
+            print ("You may now close this window.")
+            input1 = input("Press any key to exit")
+            quit
+        MoveAssets()
+        editfiles("force_deflection_field")
+        Packer()
+    def Matter():
+        def editfiles(FileName):
+            Directory = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/fourthreaper/"
+            FileName2 = Directory + FileName + ".vmt"
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_COLOR "[0.6 0.6 0.15]""','$FLOW_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_VORTEX_COLOR "[10 10 2.5]"','$FLOW_VORTEX_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            print ("Successfully edited colors for " + FileName)
+            #Writes the vmt
+        def MoveAssets():
+            source_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/effects/Matter/"
+            destination_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/fourthreaper/"
+            files_to_move = ['matter_inquisition_field.vmt','clean_mif_right.vmt','clean_mif_left.vmt','clean_mif_center.vmt','old_mif_right.vmt','old_mif_left.vmt','old_mif_center.vmt','old_mif_short.vmt']
+            for file in files_to_move:
+                source = source_folder + file
+                destination = destination_folder + file
+                shutil.copyfile(source, destination)
+                print('Copied', file, "to", destination_folder)
+        def Packer():
+            print ()
+            print ()
+            print ()
+            print ("All functions have been completed!")
+            print ("Relaunch Portal2 and it will show the force detection field recolored!")
+            print ("If you have any questions dm Areng#0001 on discord.")
+            time.sleep(2.5)
+            print ("You may now close this window.")
+            input1 = input("Press any key to exit")
+            quit
+        MoveAssets()
+        editfiles("matter_inquisition_field")
+        Packer()
+    def Closed():
+        def editfiles(FileName):
+            Directory = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/thedarkbomber/"
+            FileName2 = Directory + FileName + ".vmt"
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_COLOR "[0.196 0.196 0.196]"','$FLOW_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_VORTEX_COLOR "[0.232 0.232 0.232]"','$FLOW_VORTEX_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            print ("Successfully edited colors for " + FileName)
+            #Writes the vmt
+        def MoveAssets():
+            source_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/effects/closed/"
+            destination_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/thedarkbomber/"
+            files_to_move = ['closed_solid_field.vmt','clean_csfi_right.vmt','clean_csfi_left.vmt','clean_csfi_center.vmt','50s_csfi_right.vmt','50s_csfi_left.vmt','50s_csfi_center.vmt','50s_csfi.vmt','invis_paintable.vmt']
+            for file in files_to_move:
+                source = source_folder + file
+                destination = destination_folder + file
+                shutil.copyfile(source, destination)
+                print('Copied', file, "to", destination_folder)
+        def Packer():
+            print ()
+            print ()
+            print ()
+            print ("All functions have been completed!")
+            print ("Relaunch Portal2 and it will show the force detection field recolored!")
+            print ("If you have any questions dm Areng#0001 on discord.")
+            time.sleep(2.5)
+            print ("You may now close this window.")
+            input1 = input("Press any key to exit")
+            quit
+        MoveAssets()
+        editfiles("closed_solid_field")
+        Packer()
+    def Switch():
+        def editfiles(FileName):
+            Directory = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/switch/"
+            FileName2 = Directory + FileName + ".vmt"
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_COLOR "{0 64 255}"','$FLOW_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            reading_file = open(FileName2,'r')
+            new_file_content = ""
+            for line in reading_file:
+                stripped_line = line.strip()
+                new_line = stripped_line.replace('$FLOW_VORTEX_COLOR "{0 128 255}"','$FLOW_VORTEX_COLOR "{' + Color + '}"')
+                #Finds and replaces the defult color code with the new one
+                new_file_content += new_line +"\n"
+            reading_file.close()
+            writing_file = open(FileName2,'w')
+            writing_file.write(new_file_content)
+            writing_file.close()
+            print ("Successfully edited colors for " + FileName)
+            #Writes the vmt
+        def MoveAssets():
+            source_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/effects/switch/"
+            destination_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/switch/"
+            files_to_move = ['switch_field.vmt','switch_fizz_bounds.vtf','switch_fizz_bounds_l.vtf','switch_fizz_bounds_r.vtf','switch_left.vmt','switch_right.vmt','switch_center.vmt']
+            for file in files_to_move:
+                source = source_folder + file
+                destination = destination_folder + file
+                shutil.copyfile(source, destination)
+                print('Copied', file, "to", destination_folder)
+        def Packer():
+            print ()
+            print ()
+            print ()
+            print ("All functions have been completed!")
+            print ("Relaunch Portal2 and it will show the force detection field recolored!")
+            print ("If you have any questions dm Areng#0001 on discord.")
+            time.sleep(2.5)
+            print ("You may now close this window.")
+            input1 = input("Press any key to exit")
+            quit
+        MoveAssets()
+        editfiles("switch_field")
+        Packer()
     if EditWhat == 1:
         NormalFiz()
-    if EditWhat == 2:
+    elif EditWhat == 2:
         ABSFizzler()
-    if EditWhat == 3:
+    elif EditWhat == 3:
         CPF()
+    elif EditWhat == 4:
+        Force()
+    elif EditWhat == 5:
+        Matter()
+    elif EditWhat == 6:
+        Closed()
+    elif EditWhat == 7:
+        Switch()
+    else:
+        print ("Not a valid option!")
+        time.sleep(5)
+        quit
+
 
         
 else: 
