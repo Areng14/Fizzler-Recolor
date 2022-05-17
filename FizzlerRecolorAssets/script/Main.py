@@ -1,15 +1,41 @@
+from cgi import print_arguments
+from dataclasses import replace
 import os
 import shutil
 import random
+import string
 import time
+
 import colorama
 from colorama import Fore
 #Imports shit
 
+P2Directory = ""
+P2Directory
+def OneTimeAskQuest():
+    P2Directory = input("What is your Portal 2 Directory path? ")
+    P2Directory = P2Directory.replace('\\', '/')
+    print ("Portal 2 Directory: " + P2Directory)
+    time.sleep(2)
+    print ("Saved!")
+    WriteData = open("C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/data/data.txt",'w')
+    WriteData.write(P2Directory+'\n')
+    WriteData.write("question = 1\n")
+    WriteData.close
 
-var1 = input("Is the assets in the portal 2 directory? (yes/no): ")
-if var1 == "yes":
-    os.chdir(os.path.dirname(os.path.realpath(__file__)))
+ReadData = open("C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/data/data.txt",'r')
+ReadData1 = ReadData.readline()
+ReadData1 = ReadData.readline()
+if ReadData1 == "question = 0":
+    OneTimeAskQuest()
+
+def Clear():
+    for x in range(1000):
+        print ()
+
+
+while True:
+    Clear()
     print (Fore.RED + "Warning! If the fizzler files are NOT found, this program will crash sorry!")
     print (Fore.RED + "If you are recoloring [BEEMOD] fizzlers, Export first then recolor via this program.")
     print (Fore.BLUE + "1. Fizzler [VANILLA] (All maps)")
@@ -34,16 +60,27 @@ if var1 == "yes":
     time.sleep(0.1)
     EditWhat = int(input(Fore.YELLOW + "What fizzler are we editing? (Integer) "))
     print ()
-    dlcfolderint = int(input("What is your highest dlc folder? (Integer) "))
+    if EditWhat == 1 or EditWhat == 10:
+        dlcfolderint = int(input("What is your highest dlc folder? (Integer) "))
+        dlcfolderint += 1
+        dlcfolder = "portal2_dlc" + str(dlcfolderint)
     print ()
-    Color = input("RGB Color code (r for random),(Red: Green: Blue:): ")
+    Color = input("RGB Color code (r for random,l for last used color)(Red: Green: Blue:): ")
+    WriteData = open("C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/data/data.txt",'w')
+    WriteData.write(P2Directory+'\n')
+    WriteData.write("question = 1\n")
+    WriteData.write("color = " + Color)
     if Color == "r":
         Random1 = random.randint(0,255)
         Random2 = random.randint(0,255)
         Random3 = random.randint(0,255)
         Color = str(Random1) + " " + str(Random2) + " " + str(Random3)
-    dlcfolderint += 1
-    dlcfolder = "portal2_dlc" + str(dlcfolderint)
+    if Color == "l":
+        ReadData = open("C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/data/data.txt",'r')
+        Color = ReadData.readline()
+        Color = ReadData.readline()
+        Color = ReadData.readline()
+        Color.replace("color = ","")
     #Gets information about the game dlcs
     def NormalFiz():
 
@@ -606,6 +643,18 @@ if var1 == "yes":
 
     def Restore():
 
+        def MakeFolders():
+            path1 = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/" + dlcfolder
+            path2 = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/" + dlcfolder + "/pak01_dir"
+            path3 = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/" + dlcfolder + "/pak01_dir/materials"
+            path4 = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/" + dlcfolder + "/pak01_dir/materials/effects"
+            os.mkdir(path1)
+            os.mkdir(path2)
+            os.mkdir(path3)
+            os.mkdir(path4)
+            print ("Made folders in " + path1)
+            #Makes the DLC folders
+
         def MoveAssets():
             source_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/effects/phys_shield/"
             destination_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/phys_shield/"
@@ -654,7 +703,7 @@ if var1 == "yes":
 
             source_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/FizzlerRecolorAssets/effects/Force/"
             destination_folder = "C:/Program Files (x86)/Steam/steamapps/common/Portal 2/bee2/materials/bee2/fizz/fourthreaper/"
-            files_to_move = ['force_deflection_field.vmt','clean_fdf_right.vmt','clean_fdf_left.vmt','clean_fdf_center.vmt','old_fdf_right.vmt','cold_fdf_left.vmt','old_fdf_center.vmt',]
+            files_to_move = ['force_deflection_field.vmt','clean_fdf_right.vmt','clean_fdf_left.vmt','clean_fdf_center.vmt','old_fdf_right.vmt','old_fdf_left.vmt','old_fdf_center.vmt',]
             for file in files_to_move:
                 source = source_folder + file
                 destination = destination_folder + file
@@ -687,8 +736,16 @@ if var1 == "yes":
                 destination = destination_folder + file
                 shutil.copyfile(source, destination)
                 print('Copied', file, "to", destination_folder)
+        MakeFolders()
         MoveAssets()
+        print ()
+        print ()
+        print ()
         print("All fizzler colors restored!")
+        print ("Go to " + dlcfolder + " and move the pak01_dir in vpk.exe. Then copy it to the new DLC folder made.")
+        print ("You can find the vpk.exe in the bin folder of Portal2")
+        print ("Now quit Portal 2 and open it again.")
+        print ("Wait for the dots to turn orange then restart.")
         print("If you have any questions feel free to dm Areng#0001 on discord.")
         time.sleep(2.5)
         print ("You may now close this window.")
@@ -718,6 +775,5 @@ if var1 == "yes":
     else:
         print ("Not a valid option!")
         time.sleep(5)
-        quit
-else: 
-    quit
+        Clear()
+        pass
