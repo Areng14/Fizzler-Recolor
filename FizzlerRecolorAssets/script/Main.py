@@ -52,6 +52,7 @@ while True:
                 writefile = open(P2Directory + "/FizzlerRecolorAssets/data/dlc_data.txt",'w')
                 writefile.write(dlcfolder)
                 writefile.close
+                print (dlcfolder)
                 return (dlcfolder)
     print ("Current Portal 2 Directory: " + P2Directory)
     print (Fore.RED + "Warning! If the fizzler files are NOT found, this program will crash sorry!")
@@ -78,7 +79,7 @@ while True:
     time.sleep(0.1)
     EditWhat = int(input(Fore.YELLOW + "What fizzler are we editing? (Integer) "))
     print ()
-    if EditWhat == 1 or EditWhat == 10:
+    if EditWhat == 1:
         dlcfolder = FindDLC()
     print ()
     if EditWhat == 10:
@@ -665,19 +666,9 @@ while True:
 
     def Restore():
 
-        def MakeFolders():
-            path1 = P2Directory + dlcfolder
-            path2 = P2Directory + dlcfolder + "/pak01_dir"
-            path3 = P2Directory + dlcfolder + "/pak01_dir/materials"
-            path4 = P2Directory + dlcfolder + "/pak01_dir/materials/effects"
-            os.mkdir(path1)
-            os.mkdir(path2)
-            os.mkdir(path3)
-            os.mkdir(path4)
-            print ("Made folders in " + path1)
-            #Makes the DLC folders
-
         def MoveAssets():
+            Readfile = open(P2Directory + "/FizzlerRecolorAssets/data/dlc_data.txt",'r')
+            dlcfolder2 = Readfile.read()
             source_folder = P2Directory + "/FizzlerRecolorAssets/effects/phys_shield/"
             destination_folder = P2Directory + "/bee2/materials/bee2/fizz/phys_shield/"
             files_to_move = ['50s_pshield.vmt','50s_pshield_center.vmt','50s_pshield_left.vmt','50s_pshield_right.vmt','clean_pshield_center.vmt','clean_pshield_left.vmt','clean_pshield_right.vmt','physics_shield.vmt','physler_flow.vtf','physler_noise.vtf']
@@ -742,27 +733,16 @@ while True:
                 print('Copied', file, "to", destination_folder)
 
             source_folder = P2Directory + "/FizzlerRecolorAssets/effects/Normal/"
-            destination_folder = P2Directory + dlcfolder + "/pak01_dir/materials/effects/"
+            destination_folder = P2Directory + dlcfolder2 + "/pak01_dir/materials/effects/"
             files_to_move = ['fizzler_bounds.vtf', 'fizzler_bounds.vtf','fizzler_bounds_l.vtf','fizzler_bounds_r.vtf','fizzler_edges.vmt','fizzler_flow.vtf','fizzler_noise.vtf','fizzler_ripples.vtf','fizzler_ripples_dim.vtf','fizzler_underground_bounds.vtf','fizzler_underground_elevator_bounds.vtf','fizzler_underground_flow.vtf','fizzler_underground_noise.vtf','fizzler_underground_ripples.vtf','fizzler_underground_ripples2.vtf','fizzler_underground_wide_center_bounds.vtf','fizzler_underground_wide_side_l_bounds.vtf','fizzler_underground_wide_side_r_bounds.vtf']
             for file in files_to_move:
                 source = source_folder + file
                 destination = destination_folder + file
                 shutil.copyfile(source, destination)
                 print('Copied', file, "to", destination_folder)
-
-            source_folder = P2Directory + "/FizzlerRecolorAssets/effects/Normal/"
-            destination_folder = P2Directory + dlcfolder + "/pak01_dir/materials/effects/"
-            files_to_move = ['fizzler.vmt','fizzler_center.vmt','fizzler_l.vmt','fizzler_r.vmt','fizzler_underground.vmt','fizzler_underground_elevator.vmt','fizzler_underground_side_emitters.vmt','fizzler_underground_wide_center.vmt','fizzler_underground_wide_side_l.vmt','fizzler_underground_wide_side_r.vmt']
-            for file in files_to_move:
-                source = source_folder + file
-                destination = destination_folder + file
-                shutil.copyfile(source, destination)
-                print('Copied', file, "to", destination_folder)
-        MakeFolders()
+            path = P2Directory + dlcfolder2
+            shutil.rmtree(path)
         MoveAssets()
-        pathtoopener = P2Directory + "/bin/vpk.exe"
-        pathtofile = P2Directory + dlcfolder + "/pak01_dir"
-        subprocess.call([pathtoopener, pathtofile])
         print ()
         print ()
         print ()
