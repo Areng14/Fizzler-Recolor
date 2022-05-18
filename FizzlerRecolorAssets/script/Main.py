@@ -11,32 +11,45 @@ import os
 import shutil
 import random
 import string
+import sys
 import time
-
-
+import webbrowser
 import colorama
 from colorama import Fore
 #Imports shit
-RelPath = os.path.realpath(__file__)
+if getattr(sys, 'frozen', False):
+    RelPath = os.path.dirname(os.path.realpath(sys.executable))
+elif __file__:
+    RelPath = os.path.dirname(__file__)
 RelPath = RelPath.replace("\\","/")
-RelPath = RelPath.replace("/FizzlerRecolorAssets/script/Main.py","")
-
-P2Directory = ""
-ReadData = open(RelPath + "/Readme.txt",'r')
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData.close
-ReadData1 = ReadData1.replace('\\', '/')
+RelPath = RelPath.replace("/FizzlerRecolorAssets","")
+RelPath = RelPath.replace("/Script","")
+RelPath = RelPath.replace("/Main.py","")
+checkr1 = os.path.isfile(RelPath + "/Readme.txt")
+if checkr1 == True:
+    P2Directory = ""
+    ReadData = open(RelPath + "/Readme.txt",'r')
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData1 = ReadData.readline()
+    ReadData.close
+    ReadData1 = ReadData1.replace('\\', '/')
+elif checkr1 == False:
+    print ("Readme.txt not found!")
+    print ("Please reinstall the package here (It will autoopen)")
+    print ("https://github.com/Areng14/Fizzler-Recolor/releases")
+    time.sleep(1)
+    webbrowser.open("https://github.com/Areng14/Fizzler-Recolor/releases")
+    quit()
 
 isFile = os.path.isfile(ReadData1 + "/portal2.exe")
 print (isFile)
@@ -59,15 +72,29 @@ while True:
             print ("No Assets for Fizzler Recolor found in the Portal 2 Directory!")
             time.sleep(0.5)
             print ("Installing assets!")
-            src = RelPath + "/FizzlerRecolorAssets"
-            dest = P2Directory + r"/FizzlerRecolorAssets/"
-            destination = shutil.copytree(src, dest, copy_function = shutil.copy) 
-            print ("Succesfully installed assets into " + destination)
+            Checkr2 = os.path.exists(RelPath + "/FizzlerRecolorAssets")
+            if Checkr2 == True:
+                src = RelPath + "/FizzlerRecolorAssets"
+                dest = P2Directory + r"/FizzlerRecolorAssets/"
+                destination = shutil.copytree(src, dest, copy_function = shutil.copy) 
+                print ("Succesfully installed assets into " + destination)
+                time.sleep(3)
+            elif Checkr2 == False:
+                print ("Warning! Files for this program in it's folder is not found!")
+                print ("This means that this program cannot run!")
+                print ("Please reinstall the package here (It will autoopen)")
+                print ("https://github.com/Areng14/Fizzler-Recolor/releases")
+                time.sleep(1)
+                webbrowser.open("https://github.com/Areng14/Fizzler-Recolor/releases")
+                quit()
+
         elif Checkr == True:
             print ("Assets for fizzler recolor found!")
+            time.sleep(3)
             pass
         else:
             quit
+        
     def FindDLC():
         for y in range(1,100):
             isFile1 = os.path.exists(P2Directory + "/portal2_dlc" + str(y))
@@ -79,6 +106,7 @@ while True:
                 print (dlcfolder)
                 return (dlcfolder)
     CheckAssets()
+    Clear()
     print ("Closing Portal 2 to prevent any conflictions.")
     os.system("TASKKILL /F /IM portal2.exe")
     print ("Current Portal 2 Directory: " + P2Directory)
