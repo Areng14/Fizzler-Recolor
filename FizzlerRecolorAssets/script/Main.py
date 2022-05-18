@@ -1,21 +1,30 @@
 from asyncore import write
 from cgi import print_arguments
+from codecs import ignore_errors
+from posixpath import relpath
+import re
 import subprocess
 from dataclasses import replace
 from genericpath import isfile
+from distutils.dir_util import copy_tree
 import os
 import shutil
 import random
 import string
 import time
-import vpk
+
 
 import colorama
 from colorama import Fore
 #Imports shit
+RelPath = os.path.realpath(__file__)
+RelPath = RelPath.replace("\\","/")
+RelPath = RelPath.replace("/FizzlerRecolorAssets/script/Main.py","")
 
 P2Directory = ""
-ReadData = open("Readme.txt",'r')
+ReadData = open(RelPath + "/Readme.txt",'r')
+ReadData1 = ReadData.readline()
+ReadData1 = ReadData.readline()
 ReadData1 = ReadData.readline()
 ReadData1 = ReadData.readline()
 ReadData1 = ReadData.readline()
@@ -28,25 +37,40 @@ ReadData1 = ReadData.readline()
 ReadData1 = ReadData.readline()
 ReadData.close
 ReadData1 = ReadData1.replace('\\', '/')
+
 isFile = os.path.isfile(ReadData1 + "/portal2.exe")
-if ReadData1 == "":
-    print ("Please enter Portal 2's directory in the Readme.txt file!")
-    time.sleep(10)
-    quit
-elif isFile == False:
-    print ("Invalid Directory! Please put in a correct directory for Portal 2")
-    time.sleep(10)
-    quit
+print (isFile)
+print (ReadData1)
 def Clear():
     for x in range(1000):
         print ()
+if isFile == False:
+    Clear()
+    print (ReadData1)
+    print ("is an invalid Directory! Please put in a correct directory for Portal 2")
+    quit()
 
 while True:
     Clear()
     P2Directory = ReadData1
+    def CheckAssets():
+        Checkr = os.path.exists(P2Directory + "/FizzlerRecolorAssets")
+        if Checkr == False:
+            print ("No Assets for Fizzler Recolor found in the Portal 2 Directory!")
+            time.sleep(0.5)
+            print ("Installing assets!")
+            src = RelPath + "/FizzlerRecolorAssets"
+            dest = P2Directory + r"/FizzlerRecolorAssets/"
+            destination = shutil.copytree(src, dest, copy_function = shutil.copy) 
+            print ("Succesfully installed assets into " + destination)
+        elif Checkr == True:
+            print ("Assets for fizzler recolor found!")
+            pass
+        else:
+            quit
     def FindDLC():
         for y in range(1,100):
-            isFile1 = os.path.isfile(ReadData1 + "/portal2_dlc" + str(y) + "/pak01_dir.vpk")
+            isFile1 = os.path.exists(P2Directory + "/portal2_dlc" + str(y))
             if isFile1 == False:
                 dlcfolder = "/portal2_dlc" + str(y)
                 writefile = open(P2Directory + "/FizzlerRecolorAssets/data/dlc_data.txt",'w')
@@ -54,8 +78,10 @@ while True:
                 writefile.close
                 print (dlcfolder)
                 return (dlcfolder)
+    CheckAssets()
+    print ("Closing Portal 2 to prevent any conflictions.")
+    os.system("TASKKILL /F /IM portal2.exe")
     print ("Current Portal 2 Directory: " + P2Directory)
-    print (Fore.RED + "Warning! If the fizzler files are NOT found, this program will crash sorry!")
     print (Fore.RED + "If you are recoloring [BEEMOD] fizzlers, Export first then recolor via this program.")
     print (Fore.BLUE + "1. Fizzler [VANILLA] (All maps)")
     time.sleep(0.1)
@@ -77,6 +103,7 @@ while True:
     time.sleep(0.1)
     print ("10. Reset all")
     time.sleep(0.1)
+    print ("11. Quit")
     EditWhat = int(input(Fore.YELLOW + "What fizzler are we editing? (Integer) "))
     print ()
     if EditWhat == 1:
@@ -85,7 +112,7 @@ while True:
     if EditWhat == 10:
         pass
     else:
-        Color = input("RGB Color code (r for random,l for last used color)(Red: Green: Blue:): ")
+        Color = input("RGB Color code (r for random)(Red: Green: Blue:): ")
         WriteData = open(P2Directory + "/FizzlerRecolorAssets/data/data.txt",'w')
         WriteData.write(P2Directory + '\n')
         WriteData.write("question = 1\n")
@@ -96,13 +123,6 @@ while True:
             Random2 = random.randint(0,255)
             Random3 = random.randint(0,255)
             Color = str(Random1) + " " + str(Random2) + " " + str(Random3)
-        if Color == "l":
-            ReadData = open(P2Directory + "/FizzlerRecolorAssets/data/data.txt",'r')
-            Color = ReadData.readline()
-            Color = ReadData.readline()
-            Color = ReadData.readline()
-            Color.replace("color = ","")
-            ReadData.close
     #Gets information about the game dlcs
     def NormalFiz():
 
@@ -169,6 +189,10 @@ while True:
             pathtoopener = P2Directory + "/bin/vpk.exe"
             pathtofile = P2Directory + dlcfolder + "/pak01_dir"
             subprocess.call([pathtoopener, pathtofile])
+            location = P2Directory + dlcfolder
+            dir = "pak01_dir"
+            path = os.path.join(location, dir)
+            shutil.rmtree(path, ignore_errors = True)
             print ()
             print ()
             print ()
@@ -731,15 +755,7 @@ while True:
                 destination = destination_folder + file
                 shutil.copyfile(source, destination)
                 print('Copied', file, "to", destination_folder)
-
-            source_folder = P2Directory + "/FizzlerRecolorAssets/effects/Normal/"
-            destination_folder = P2Directory + dlcfolder2 + "/pak01_dir/materials/effects/"
-            files_to_move = ['fizzler_bounds.vtf', 'fizzler_bounds.vtf','fizzler_bounds_l.vtf','fizzler_bounds_r.vtf','fizzler_edges.vmt','fizzler_flow.vtf','fizzler_noise.vtf','fizzler_ripples.vtf','fizzler_ripples_dim.vtf','fizzler_underground_bounds.vtf','fizzler_underground_elevator_bounds.vtf','fizzler_underground_flow.vtf','fizzler_underground_noise.vtf','fizzler_underground_ripples.vtf','fizzler_underground_ripples2.vtf','fizzler_underground_wide_center_bounds.vtf','fizzler_underground_wide_side_l_bounds.vtf','fizzler_underground_wide_side_r_bounds.vtf']
-            for file in files_to_move:
-                source = source_folder + file
-                destination = destination_folder + file
-                shutil.copyfile(source, destination)
-                print('Copied', file, "to", destination_folder)
+            
             path = P2Directory + dlcfolder2
             shutil.rmtree(path)
         MoveAssets()
@@ -775,6 +791,8 @@ while True:
         Pys()
     elif EditWhat == 10:
         Restore()
+    elif EditWhat == 11:
+        quit()
     else:
         print ("Not a valid option!")
         time.sleep(5)
