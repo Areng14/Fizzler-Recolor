@@ -23,18 +23,8 @@ RelPath = RelPath.replace("/FizzlerRecolorAssets/script/Main.py","")
 
 P2Directory = ""
 ReadData = open(RelPath + "/Readme.txt",'r')
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
-ReadData1 = ReadData.readline()
+for x in range(12):
+    ReadData1 = ReadData.readline()
 ReadData.close
 ReadData1 = ReadData1.replace('\\', '/')
 
