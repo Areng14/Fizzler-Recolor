@@ -200,7 +200,7 @@ while True:
             #Moves assets to the DLC folder
 
         def Packer():
-            pathtoopener = P2Directory + "/bin/vpk.exe"
+            pathtoopener = P2Directory + "/FizzlerRecolorAssets/packer/vpk.exe"
             pathtofile = P2Directory + dlcfolder + "/pak02_dir"
             subprocess.call([pathtoopener, pathtofile])
             location = P2Directory + dlcfolder
@@ -213,7 +213,7 @@ while True:
             print (Fore.YELLOW + "Fizzler colors have been changed!")
             print ("Open Portal 2 and check if the fizzler colors have changed.")
             print ("If it has been changed, congrats!")
-            print ("If it is not changed please try your best to send areng the LOGS. (GREEN TEXT)")
+            print ("If it is not changed please contact Areng on discord.")
             print ("If you have any questions dm Areng#0001 on discord.")
             time.sleep(2.5)
             print ("You may now close this window.")
@@ -775,7 +775,7 @@ while True:
         print ()
         print ()
         print ("All fizzler colors restored!")
-        print ("If the colors are not restored please DM Areng on discord and send him the LOGS. (GREEN TEXT)")
+        print ("If the colors are not restored please DM Areng on discord.")
         print("If you have any questions feel free to dm Areng#0001 on discord.")
         time.sleep(2.5)
         print ("You may now close this window.")
